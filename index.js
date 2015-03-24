@@ -133,7 +133,11 @@ var ReactZeroClipboard = react.createClass({
         // wait for ZeroClipboard to be ready, and then bind it to our element
         this.eventRemovers = [];
         this.ready(function(){
-            var el = this.getDOMNode();
+            var el;
+            if(!this.isMounted()) {
+                return;
+            }
+            el = this.getDOMNode();
             client.clip(el);
 
             // translate our props to ZeroClipboard events, and add them to
